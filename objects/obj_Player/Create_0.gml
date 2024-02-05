@@ -1,3 +1,4 @@
+#region Variables
 #region Gravity and fall variables
 // Variável adicionada toda vez à velocidade vertical
 gravityVariable		=	.25;
@@ -17,14 +18,13 @@ verticalMaxSpeed	=	15;
 jumpMaxQuantity	=	2;
 jumpQuantity		=	jumpMaxQuantity;
 #endregion
-
+#endregion
 
 #region Functions/Methods and Cases
 
-playerState = "MOVING"
-
 #region MOVING state
-function methodPlayerStateMOVINGStep(){
+// Código que roda no step event
+methodPlayerStateMOVINGStep		 =	 function(){
 	#region Keys
 	var _up		=	keyboard_check(ord("W"));
 	var _down	=	keyboard_check(ord("S"));
@@ -49,7 +49,7 @@ function methodPlayerStateMOVINGStep(){
 	// Só aplica a gravidade se ele não estiver no chão
 	else{
 		// Gravidade sendo aplicada à velocidade vertical
-		verticalSpeed += gravityVariable;
+		verticalSpeed	+=	 gravityVariable;
 	}
 	#endregion
 
@@ -58,23 +58,24 @@ function methodPlayerStateMOVINGStep(){
 	if (_space && jumpQuantity > 0){
 		//... inverte a velocidade vertical, deixando ela com metade da velocidade máxima,...
 		//... essencialmente você pode dar um pulo que tem metade da velocidade que a gravidade pode ter
-		verticalSpeed = - verticalMaxSpeed / 2;
+		verticalSpeed	=	- verticalMaxSpeed / 2;
 	
 		//... Reduz a quantidade de pulos
-		jumpQuantity--;
+		jumpQuantity-- ;
 	}
 	#endregion
 
 	#region Limiting vertical speed
 	// Limita a velocidade vertical ao máximo para cima e ao dobro do máximo para baixo
-	verticalSpeed = clamp(verticalSpeed, -verticalMaxSpeed, verticalMaxSpeed * 2);
+	verticalSpeed	 =	clamp(verticalSpeed, -verticalMaxSpeed, verticalMaxSpeed * 2);
 	#endregion
 }
-function methodPlayerStateMOVINGStepFinal() {
+// Código que roda no end step event
+methodPlayerStateMOVINGStepFinal	 =	 function(){
 	#region Important local variables
 	// Módulo das velocidades
-	var _absoluteHorizontalSpeed = abs(horizontalSpeed)
-	var _absoluteVerticalSpeed = abs(verticalSpeed)
+	var _absoluteHorizontalSpeed	 =		abs(horizontalSpeed)
+	var _absoluteVerticalSpeed		 =		abs(verticalSpeed)
 	#endregion
 
 	#region Horizontal collision
@@ -82,18 +83,18 @@ function methodPlayerStateMOVINGStepFinal() {
 	repeat (_absoluteHorizontalSpeed){
 		#region Important local variables
 		// Sinal (negativo ou positivo) da velocidade
-		var _horizontalSpeedSign = sign(horizontalSpeed);
+		var _horizontalSpeedSign				=	sign(horizontalSpeed);
 	
 		// Variável que checa se está colidindo à esquerda ou direita
-		var _placeMeetingHorizontalSign = place_meeting(x + _horizontalSpeedSign, y, obj_ground)
+		var _placeMeetingHorizontalSign		=	place_meeting(x + _horizontalSpeedSign, y, obj_ground)
 	
 		// Altura máxima da rampa
 		var _rampLimit = 4
 		// Verifica se NÃO está colidindo à esquerda ou direita no tamanho limite da rampa
-		var _placeMeetingFreeRamp = !place_meeting(x + _horizontalSpeedSign, y - _rampLimit, obj_ground)
+		var _placeMeetingFreeRamp			=		!place_meeting(x + _horizontalSpeedSign, y - _rampLimit, obj_ground)
 	
 		// Verifica se NÃO está colidindo à esquerda ou direita no tamanho limite da rampa
-		var _placeMeetingFreeRampBelow = !place_meeting(x + _horizontalSpeedSign, y + _rampLimit + 1, obj_ground)
+		var _placeMeetingFreeRampBelow	=		!place_meeting(x + _horizontalSpeedSign, y + _rampLimit + 1, obj_ground)
 	
 	
 		#endregion
@@ -108,18 +109,18 @@ function methodPlayerStateMOVINGStepFinal() {
 			// Repita a quantidade de pixels de altura máxima da rampa
 			repeat(_rampLimit){
 				// Meio redundante mas recupera o sinal da altura da rampa máxima
-				var _rampLimitSign = sign(_rampLimit)
+				var _rampLimitSign				=	sign(_rampLimit)
 
 				// Checa se está colidindo na altura do sinal
-				var _placeMeetingFreeRampSign = !place_meeting(x + _horizontalSpeedSign, y - _rampLimitSign, obj_ground)
+				var _placeMeetingFreeRampSign	=	!place_meeting(x + _horizontalSpeedSign, y - _rampLimitSign, obj_ground)
 			
 				// Checa se passa em 5 de altura
-				var _placeMeetingWaitThatsWall = place_meeting(x + _horizontalSpeedSign, y - (_rampLimitSign * (_rampLimit+1)), obj_ground)
+				var _placeMeetingWaitThatsWall	=	place_meeting(x + _horizontalSpeedSign, y - (_rampLimitSign * (_rampLimit+1)), obj_ground)
 			
 				// Se não colidiu na altura do sinal, sobe um e move um pra frente
 				if (_placeMeetingFreeRampSign){
-					y -=  _rampLimitSign;
-					x +=  _horizontalSpeedSign
+					y	-=	 _rampLimitSign;
+					x	+=	 _horizontalSpeedSign
 				
 				}
 				// Se viu que é um muro, sai do loop
@@ -128,7 +129,7 @@ function methodPlayerStateMOVINGStepFinal() {
 				}
 				// Se não ta livre ainda mas é uma rampa, sobe um bloco e checa de novo
 				else{
-					y -= _rampLimitSign;
+					y	-=	_rampLimitSign;
 				}
 	
 			
@@ -142,18 +143,17 @@ function methodPlayerStateMOVINGStepFinal() {
 			repeat(_rampLimit + 1){
 				#region Important local variables
 				// Meio redundante mas recupera o sinal da altura da rampa máxima
-				var _rampLimitBelowSign = sign(-_rampLimit)	
-	
+				var _rampLimitBelowSign						=		sign(-_rampLimit)	
 				// Checa se é uma queda
-				var _placeMeetingWaitThatsFall = !place_meeting(x + _horizontalSpeedSign, y - (_rampLimitBelowSign * (_rampLimit+1)), obj_ground)
+				var _placeMeetingWaitThatsFall				=		!place_meeting(x + _horizontalSpeedSign, y - (_rampLimitBelowSign * (_rampLimit+1)), obj_ground)
 				// Checa se está colidindo na altura do sinal
-				var _placeMeetingFreeRampBelowSign = !place_meeting(x + _horizontalSpeedSign, y - _rampLimitBelowSign, obj_ground)
+				var _placeMeetingFreeRampBelowSign		=		!place_meeting(x + _horizontalSpeedSign, y - _rampLimitBelowSign, obj_ground)
 			
 				// Meio redundante mas recupera o sinal da altura da rampa máxima
-				_rampLimitBelowSign = sign(-_rampLimit)	
+				_rampLimitBelowSign			=		sign(-_rampLimit)	
 	
 				// Checa se é uma queda
-				_placeMeetingWaitThatsFall = !place_meeting(x + _horizontalSpeedSign, y - (_rampLimitBelowSign * (_rampLimit+1)), obj_ground)
+				_placeMeetingWaitThatsFall		=		!place_meeting(x + _horizontalSpeedSign, y - (_rampLimitBelowSign * (_rampLimit+1)), obj_ground)
 				#endregion
 			
 				// Se colidiu na diagonal um abaixo
@@ -165,7 +165,7 @@ function methodPlayerStateMOVINGStepFinal() {
 					break;
 				}
 				else{
-					y -= _rampLimitBelowSign;
+					y	 -=	_rampLimitBelowSign;
 				
 				}
 			}
@@ -178,12 +178,12 @@ function methodPlayerStateMOVINGStepFinal() {
 		#region Colliding Horizontal
 		// Se tá tocando ao lado, para
 		if (_placeMeetingHorizontalSign){
-			horizontalSpeed = 0;
+			horizontalSpeed		=	0;
 			break;
 		}
 		// Se não, move
 		else{
-			x += _horizontalSpeedSign;
+			x	+=	_horizontalSpeedSign;
 		}
 		#endregion
 		#endregion
@@ -195,27 +195,35 @@ function methodPlayerStateMOVINGStepFinal() {
 	repeat(_absoluteVerticalSpeed){
 		#region Important local variables
 		// Sinal (negativo ou positivo) da velocidade
-		var _verticalSpeedSign = sign(verticalSpeed);
+		var _verticalSpeedSign	=	sign(verticalSpeed);
 	
 		// Variável que checa se está colidindo acima ou abaixo
-		var _placeMeetingVerticalSign = place_meeting(x, y + _verticalSpeedSign, obj_ground)
+		var _placeMeetingVerticalSign		=	place_meeting(x, y + _verticalSpeedSign, obj_ground)
 		#endregion
 	
 		#region Collision checks
 		// Se tá tocando abaixo um pixel, para de cair
 		if (_placeMeetingVerticalSign){
-			verticalSpeed = 0;
+			verticalSpeed		=		0;
 			break;
 		}
 		// Se não, desce mais
 		else{
-			y += _verticalSpeedSign;
+			y		+=		_verticalSpeedSign;
 		}
 		#endregion
 	}
 	#endregion
 }
+// Junção de todos os eventos em determinado estado
+playerStateMOVING		=	function(){
+	methodPlayerStateMovingStep();
+	methodPlayerStateMovingStepFinal();
+}
+// Atribuição da junção à variável de estado
+playerState	 =	playerStateMOVING
 #endregion
+
 
 #region DEAD state
 #endregion

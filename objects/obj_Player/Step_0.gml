@@ -1,12 +1,12 @@
 switch(playerState){
 	#region MOVING
-	case "MOVING":
+	case playerStateMOVING:
 		methodPlayerStateMOVINGStep()
 	break;
 	#endregion
 	
 	#region DEAD
-	case "DEAD":
+	case playerStateDEAD:
 		
 	break;
 	#endregion

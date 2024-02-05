@@ -9,10 +9,9 @@
     {"name":"Fontes","order":7,"path":"folders/Fontes.yy",},
     {"name":"Linhas do tempo","order":8,"path":"folders/Linhas do tempo.yy",},
     {"name":"Objetos","order":9,"path":"folders/Objetos.yy",},
-    {"name":"Characters","order":1,"path":"folders/Objetos/Characters.yy",},
-    {"name":"Controllers","order":3,"path":"folders/Objetos/Controllers.yy",},
-    {"name":"Others","order":4,"path":"folders/Objetos/Others.yy",},
-    {"name":"Particle Systems","order":15,"path":"folders/Particle Systems.yy",},
+    {"name":"Controllers","order":1,"path":"folders/Objetos/Controllers.yy",},
+    {"name":"Others","order":2,"path":"folders/Objetos/Others.yy",},
+    {"name":"Particle Systems","order":3,"path":"folders/Objetos/Particle Systems.yy",},
     {"name":"Scripts","order":5,"path":"folders/Scripts.yy",},
     {"name":"Sequências","order":11,"path":"folders/Sequências.yy",},
     {"name":"Shaders","order":6,"path":"folders/Shaders.yy",},
@@ -24,7 +23,7 @@
   ],
   "ResourceOrderSettings": [
     {"name":"obj_ramp","order":1,"path":"objects/obj_ramp/obj_ramp.yy",},
-    {"name":"obj_Player","order":1,"path":"objects/obj_Player/obj_Player.yy",},
+    {"name":"obj_player","order":1,"path":"objects/obj_player/obj_player.yy",},
     {"name":"spr_ramp","order":1,"path":"sprites/spr_ramp/spr_ramp.yy",},
   ],
 }
