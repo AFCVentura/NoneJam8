@@ -1,15 +1,26 @@
+#region PAUSE
+if (global.pause){
+	exit
+}
+
 switch(playerState){
-	#region MOVING
-	case playerStateMOVING:
-		methodPlayerStateMOVINGStepFinal()
+	#region WALKING
+	case playerStateWALKING:
+		methodPlayerStateWALKINGStepFinal()
 	break;
 	#endregion
 	
-	#region DEAD
-	case playerStateDEAD:
-		
+	#region IDLE
+	case playerStateIDLE:
+		methodPlayerStateIDLEStepFinal()
 	break;
 	#endregion
 	
+	#region JUMPING
+	case playerStateJUMPING:
+		methodPlayerStateJUMPINGStepFinal()
+	break;
+	#endregion
+
 
 }

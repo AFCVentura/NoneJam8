@@ -2,7 +2,12 @@
 // Alvo da câmera (player geralmente) e state machine dela
 cameraTarget	=	 noone;
 cameraState	=	 noone;
+global.cameraViewWidth		=	camera_get_view_width(view_camera[0])
+global.cameraViewHeight	=	camera_get_view_height(view_camera[0])
 #endregion
+
+#region Setting GUI size
+display_set_gui_size(view_wport[0], view_hport[0])
 
 #region Setting camera to follow the player 
 

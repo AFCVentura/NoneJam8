@@ -1,14 +1,34 @@
+#region PAUSE
+if (global.pause){
+	image_speed = 0
+	exit
+}
+else{
+	image_speed = playerSpriteSpeed
+}
+#endregion
 switch(playerState){
-	#region MOVING
-	case playerStateMOVING:
-		methodPlayerStateMOVINGStep()
+	#region WALKING
+	case playerStateWALKING:
+		playerStateString = "WALKING"
+		methodPlayerStateWALKINGStep()
 	break;
 	#endregion
 	
-	#region DEAD
-	case playerStateDEAD:
-		
+	#region IDLE
+	case playerStateIDLE:
+		playerStateString = "IDLE"
+		methodPlayerStateIDLEStep()
 	break;
+	#endregion
+	
+	#region JUMPING
+	case playerStateJUMPING:
+		playerStateString = "JUMPING"
+		methodPlayerStateJUMPINGStep()
+	break;
+	#endregion
+
 	#endregion
 	
 

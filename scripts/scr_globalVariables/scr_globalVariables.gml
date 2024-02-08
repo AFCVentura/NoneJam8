@@ -66,7 +66,19 @@ global.releasedTab = keyboard_check_released(vk_tab)
 #region PLAYER GLOBAL VARIABLES
 global.playerIsTouchingGround = false
 #endregion
-#region CAMERA AND WINDOW
+#region CAMERA, WINDOW AND GUI
 global.cameraViewWidth		=	camera_get_view_width(view_camera[0])
 global.cameraViewHeight	=	camera_get_view_height(view_camera[0])
+
+global.guiViewWidth			=	display_get_gui_width()
+global.guiViewHeight			=	display_get_gui_height()
+
+
+#endregion
+#region DEBUG VARIABLES
+global.debug = false
+#endregion
+#region PAUSE VARIABLE
+global.pause = false
+
 #endregion
