@@ -1,7 +1,7 @@
 #region Variables
 #region Gravity and fall variables
 // Variável adicionada toda vez à velocidade vertical
-gravityVariable		=	.25;
+gravityVariable		=	.20;
 #endregion
 
 #region Speed Variables
@@ -18,12 +18,20 @@ verticalMaxSpeed	=	15;
 jumpMaxQuantity	=	2;
 jumpQuantity		=	jumpMaxQuantity;
 
+jumpTimer			=	0
+jumpMaxTimer		=	15
+
+#endregion
 // String que mostra o estado atual do player
 playerStateString = ""
-#endregion
+
 #region Sprite Speed
 playerSpriteSpeed = image_speed
 #endregion
+#region Tileset Variables
+tilesetGround = layer_tilemap_get_id("ts_ground")
+#endregion
+
 #endregion
 
 #region Functions/Methods and Cases
@@ -41,7 +49,7 @@ methodPlayerStateIDLEStep	=	function(){
 	#endregion
 	
 	#region CHANGING STATE
-	if (!place_meeting(x, y + 1, obj_ground) || _space){
+	if (!place_meeting(x, y + 1, tilesetGround) || _space){
 		playerState = playerStateJUMPING
 	}
 	else if (_left ^^ _right){
@@ -69,7 +77,7 @@ methodPlayerStateIDLEStep	=	function(){
 }
 methodPlayerStateIDLEStepFinal	=	function(){
 	collisions()
-
+	horizontalSpeed = 0
 }
 playerStateIDLE	=	function(){
 	methodPlayerStateIDLEStep()
@@ -91,11 +99,13 @@ methodPlayerStateWALKINGStep		 =	 function(){
 		
 				
 		#region CHANGING STATE
-		if (!place_meeting(x, y + 1, obj_ground) || _space){
+		if (!place_meeting(x, y + 1, tilesetGround) || _space){
 			playerState = playerStateJUMPING
+			exit
 		}
 		else if (!_left && !_right){
 			playerState = playerStateIDLE
+			exit
 		}
 		#endregion
 
@@ -131,7 +141,7 @@ playerStateWALKING		=	function(){
 #region JUMPING state
 methodPlayerStateJUMPINGStep = function(){
 	#region CHANGING STATE
-	if (place_meeting(x, y + 1, obj_ground)){
+	if (place_meeting(x, y + 1, tilesetGround)){
 		playerState = playerStateIDLE
 	}
 	#endregion

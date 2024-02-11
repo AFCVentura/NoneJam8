@@ -13,7 +13,7 @@ function verticalCollision(){
 		var _verticalSpeedSign	=	sign(verticalSpeed);
 	
 		// Variável que checa se está colidindo acima ou abaixo
-		var _placeMeetingVerticalSign		=	place_meeting(x, y + _verticalSpeedSign, obj_ground)
+		var _placeMeetingVerticalSign		=	place_meeting(x, y + _verticalSpeedSign, tilesetGround)
 		#endregion
 	
 		#region Collision checks
@@ -32,7 +32,7 @@ function verticalCollision(){
 	
 	#region Checking if the player is on the ground
 	// Checando se o player está no chão
-	var _playerIsGround	=	place_meeting(x, y + 1, obj_ground);
+	var _playerIsGround	=	place_meeting(x, y + 1, tilesetGround);
 	
 	// Se o player não está no chão, a gravidade é aplicada
 	if (!_playerIsGround){
@@ -56,15 +56,15 @@ function verticalCollision(){
 			var _horizontalSpeedSign				=	sign(horizontalSpeed);
 	
 			// Variável que checa se está colidindo à esquerda ou direita
-			var _placeMeetingHorizontalSign		=	place_meeting(x + _horizontalSpeedSign, y, obj_ground)
+			var _placeMeetingHorizontalSign		=	place_meeting(x + _horizontalSpeedSign, y, tilesetGround)
 	
 			// Altura máxima da rampa
 			var _rampLimit = 4
 			// Verifica se NÃO está colidindo à esquerda ou direita no tamanho limite da rampa
-			var _placeMeetingFreeRamp			=		!place_meeting(x + _horizontalSpeedSign, y - _rampLimit, obj_ground)
+			var _placeMeetingFreeRamp			=		!place_meeting(x + _horizontalSpeedSign, y - _rampLimit, tilesetGround)
 	
 			// Verifica se NÃO está colidindo à esquerda ou direita no tamanho limite da rampa
-			var _placeMeetingFreeRampBelow	=		!place_meeting(x + _horizontalSpeedSign, y + _rampLimit + 1, obj_ground)
+			var _placeMeetingFreeRampBelow	=		!place_meeting(x + _horizontalSpeedSign, y + _rampLimit + 1, tilesetGround)
 	
 	
 			#endregion
@@ -82,10 +82,10 @@ function verticalCollision(){
 					var _rampLimitSign				=	sign(_rampLimit)
 
 					// Checa se está colidindo na altura do sinal
-					var _placeMeetingFreeRampSign	=	!place_meeting(x + _horizontalSpeedSign, y - _rampLimitSign, obj_ground)
+					var _placeMeetingFreeRampSign	=	!place_meeting(x + _horizontalSpeedSign, y - _rampLimitSign, tilesetGround)
 			
 					// Checa se passa em 5 de altura
-					var _placeMeetingWaitThatsWall	=	place_meeting(x + _horizontalSpeedSign, y - (_rampLimitSign * (_rampLimit+1)), obj_ground)
+					var _placeMeetingWaitThatsWall	=	place_meeting(x + _horizontalSpeedSign, y - (_rampLimitSign * (_rampLimit+1)), tilesetGround)
 			
 					// Se não colidiu na altura do sinal, sobe um e move um pra frente
 					if (_placeMeetingFreeRampSign){
@@ -115,15 +115,15 @@ function verticalCollision(){
 					// Meio redundante mas recupera o sinal da altura da rampa máxima
 					var _rampLimitBelowSign						=		sign(-_rampLimit)	
 					// Checa se é uma queda
-					var _placeMeetingWaitThatsFall				=		!place_meeting(x + _horizontalSpeedSign, y - (_rampLimitBelowSign * (_rampLimit+1)), obj_ground)
+					var _placeMeetingWaitThatsFall				=		!place_meeting(x + _horizontalSpeedSign, y - (_rampLimitBelowSign * (_rampLimit+1)), tilesetGround)
 					// Checa se está colidindo na altura do sinal
-					var _placeMeetingFreeRampBelowSign		=		!place_meeting(x + _horizontalSpeedSign, y - _rampLimitBelowSign, obj_ground)
+					var _placeMeetingFreeRampBelowSign		=		!place_meeting(x + _horizontalSpeedSign, y - _rampLimitBelowSign, tilesetGround)
 			
 					// Meio redundante mas recupera o sinal da altura da rampa máxima
 					_rampLimitBelowSign			=		sign(-_rampLimit)	
 	
 					// Checa se é uma queda
-					_placeMeetingWaitThatsFall		=		!place_meeting(x + _horizontalSpeedSign, y - (_rampLimitBelowSign * (_rampLimit+1)), obj_ground)
+					_placeMeetingWaitThatsFall		=		!place_meeting(x + _horizontalSpeedSign, y - (_rampLimitBelowSign * (_rampLimit+1)), tilesetGround)
 					#endregion
 			
 					// Se colidiu na diagonal um abaixo
